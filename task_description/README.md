@@ -51,7 +51,7 @@ Links
 RESTful Routing Table (Client - React Router)
 
 ### **API Routing and Components Overview**
-|--------------------|------------------------|--------------------|-----------------------------------------------------------------|
+
 |  Path              |  Component             |   Authentication   |    Description                                                  |
 |--------------------|------------------------|--------------------|-----------------------------------------------------------------|
 | `/login`           | `LoginPage`            | Public             | Displays the login form for users to sign in.                   |
@@ -59,7 +59,7 @@ RESTful Routing Table (Client - React Router)
 | `/`                | `DashboardPage`        | Protected          | Main dashboard showing the list of tasks and messages.          |
 | `/messages/:id`    | `MessageDetailPage`    | Protected          | Displays the details of a specific message along with comments. |
 | `*`                | `NotFoundPage`         | Public             | Displays a 404 Not Found page for undefined routes (optional).  |
-|--------------------|------------------------|--------------------|-----------------------------------------------------------------|
+
 (Note: Protected routes require user authentication)
 
 
