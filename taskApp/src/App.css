@@ -10,29 +10,7 @@ body {
   height: auto; /* الحفاظ على النسب الأصلية للصورة */
 }
 
-.app-container {
-  background-image: url('./assets/images/Done-rafiki.png');  
-  background-size: cover;  /* تأكد من أن الصورة تغطي كامل الصفحة */
-  background-position: center;  /* تحديد موقع الصورة في منتصف الشاشة */
-  height: 100vh;  /* جعل الصفحة تمتد على كامل ارتفاع الشاشة */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* محاذاة المحتوى في وسط الصفحة */
-  align-items: center;  /* محاذاة المحتوى في وسط الصفحة */
-  color: white;  /* تغيير لون النص إلى الأبيض لزيادة الوضوح */
-}
 
-/* وضع طبقة شبه شفافة (Overlay) لتعتيم الصورة قليلًا */
-.app-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);  /* تعتيم الصورة بنسبة 40% */
-  z-index: -1;  /* وضع الطبقة خلف المحتوى */
-}
 
 /* Header Section */
 .header {

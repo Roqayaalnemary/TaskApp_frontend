@@ -1,64 +1,7 @@
-// import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-
-// function LoginPage() {
-//   const [isLogin, setIsLogin] = useState(true); // تحديد ما إذا كانت الصفحة هي صفحة تسجيل الدخول أو إنشاء حساب
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const navigate = useNavigate(); // لاستخدام التوجيه عند نجاح التسجيل أو الدخول
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     if (email && password) {
-//       // في حالة نجاح تسجيل الدخول أو إنشاء حساب
-//       localStorage.setItem("userName", email);  // تخزين اسم المستخدم بعد التسجيل أو تسجيل الدخول
-//       navigate('/home'); // توجيه المستخدم إلى الصفحة الرئيسية بعد نجاح الدخول أو التسجيل
-//     } else {
-//       alert('Please fill in both fields.');
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
-//       <form onSubmit={handleSubmit}>
-//         <label>Email:</label>
-//         <input
-//           type="email"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           placeholder="Enter your email"
-//           required
-//         />
-
-//         <label>Password:</label>
-//         <input
-//           type="password"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           placeholder="Enter your password"
-//           required
-//         />
-
-//         <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
-//       </form>
-
-//       <div className="toggle-login-signup">
-//         {/* إذا كانت الصفحة هي "Login"، يمكن للمستخدم التبديل إلى "Sign Up" */}
-//         <p onClick={() => setIsLogin(!isLogin)}>
-//           {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default LoginPage;
-
-
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import './HomePage.css';  // استيراد ملفات CSS الخاصة بالصفحة
 
 function HomePage() {
@@ -129,3 +72,7 @@ function HomePage() {
 }
 
 export default HomePage;
+
+
+
+
