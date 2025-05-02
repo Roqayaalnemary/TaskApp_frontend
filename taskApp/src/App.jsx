@@ -130,7 +130,7 @@ function App() {
               <li><Link to="/messages">Messages</Link></li>  {/* رابط إلى صفحة الرسائل */}
               <li><Link to="/comments">Comments</Link></li>  {/* رابط إلى صفحة التعليقات */}
               <li><Link to="/bulletin-board">Bulletin Board</Link></li>  {/* رابط إلى صفحة لوحة الإعلانات */}
-              <li><Link to="/signup">Sign Up</Link></li>  {/* رابط إلى صفحة التسجيل */}
+              <li><Link to="/signin">Sign in</Link></li>  {/* رابط إلى صفحة التسجيل */}
             </ul>
           </nav>
         </header>

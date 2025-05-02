@@ -1,4 +1,4 @@
-/* التنسيق الأساسي للصفحة الرئيسية */
+/* 
 .home-container {
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@
   
   h1 {
     font-size: 2rem;
-    color: #4CAF50;  /* لون الترحيب */
+    color: #4CAF50;  
   }
   
   h2 {
@@ -60,4 +60,65 @@
   .logout-button:hover {
     background-color: #d32f2f;
   }
-  
+   */
+
+/* home-container */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f7fc;
+}
+
+/* login-section */
+.login-section {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-section input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-section button {
+  width: 100%;
+  padding: 10px;
+  background-color: #222924;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+}
+
+/* tasks-section */
+.tasks-section {
+  text-align: center;
+}
+
+.tasks-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.tasks-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tasks-section li {
+  font-size: 18px;
+  margin: 10px 0;
+}
