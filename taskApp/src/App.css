@@ -52,8 +52,8 @@ body {
 
 .header .navbar a:hover,
 .header .navbar a.active {
-  text-decoration: underline;
-  color: #0056b3; 
+  text-decoration:solid
+  
 }
 
 /* Main Content */
@@ -122,4 +122,7 @@ footer {
   padding: 10px;
   background-color: #333;
   color: white;
+}
+.navbar a:hover {
+  background-color: #ece9e9;
 }

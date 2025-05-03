@@ -1,3 +1,20 @@
+
+
+// import React from 'react';
+
+// export default function BulletinBoardPage() {
+//   return (
+//     <div>
+//       <h2>BulletinBoardPage</h2>
+//       <p>Here are your messages. Stay updated with the latest notifications!</p>
+//     </div>
+//   );
+// }
+
+
+
+
+
 import React, { useState } from 'react';
 import './BulletinBoardPage.css'; // استيراد ملف الـ CSS
 

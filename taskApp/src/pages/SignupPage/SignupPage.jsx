@@ -59,7 +59,7 @@ export default function SignupPage({ setUser }) {
                 <img 
                     src={nerdFinch} 
                     alt="A finch using a computer" 
-                    style={{ width: "150px", height: "auto", marginRight: "20px" }}  
+                    style={{ width: "550px", height: "auto", marginRight: "5px" }}  
                 />
                 <h1>Sign Up</h1>
             </div>

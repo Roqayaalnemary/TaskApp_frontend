@@ -1,0 +1,172 @@
+  .react-calendar {
+    background-color: #ffffff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف حول التقويم */
+  }
+  
+  .react-calendar__tile {
+    background-color: #f9f9f9; /* تغيير خلفية التواريخ إلى لون فاتح */
+    color: #333; /* تعيين اللون الداكن للنصوص */
+    border-radius: 5px; /* إضافة حواف مدورة للتواريخ */
+  }
+  
+  .react-calendar__tile:active, .react-calendar__tile:hover {
+    background-color: #007bff; /* تغيير اللون عند التمرير أو النقر */
+    color: white; /* تغيير لون النص عند التمرير أو النقر */
+  }
+  
+  .react-calendar__month-view__days__day--weekend {
+    color: #dc3545; /* تحديد لون عطلات نهاية الأسبوع */
+  }
+  
+  .react-calendar__navigation button {
+    background-color: #007bff; /* تغيير لون أزرار التنقل */
+    color: white; /* جعل النص أبيض */
+    border: none; /* إزالة الحدود */
+    padding: 10px; /* إضافة مساحة داخلية للأزرار */
+    border-radius: 5px; /* إضافة حواف مدورة للأزرار */
+  }
+  
+  .react-calendar__navigation button:hover {
+    background-color: #0056b3; /* تغيير اللون عند التمرير على الأزرار */
+  }
+  
+  /* تغيير مظهر التاريخ المحدد */
+  .react-calendar__tile--active {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  /* تغيير النص عند عرض التاريخ */
+  .react-calendar__month-view__days__day {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  /* تعديلات تنسيق باقي المهام */
+  .dashboard {
+    padding: 20px;
+  }
+  
+  .task-progress {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .task-progress img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .progress-bar {
+    width: 70%;
+    height: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 5px;
+  }
+  
+  .tasks {
+    margin-top: 20px;
+  }
+  
+  .tasks h3 {
+    margin-bottom: 20px;
+  }
+  
+  .task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .task-item .task-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .task-item .completed {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .task-item .in-progress {
+    color: orange;
+    font-weight: bold;
+  }
+  
+  button {
+    padding: 6px 12px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-complete {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-in-progress {
+    background-color: #ffc107;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .add-task {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .new-task-input {
+    flex-grow: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .add-task-btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-task-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .calendar-container, .statistics {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+  }
+  
+  .stats-box {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
