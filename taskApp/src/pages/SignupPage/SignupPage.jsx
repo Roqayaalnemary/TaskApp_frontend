@@ -1,99 +1,125 @@
-// IMPORTS
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // استيراد useNavigate من react-router-dom
+import { useNavigate } from "react-router-dom";
 
+// IMAGES
+import nerdFinch from "../../assets/images/In sync-pana.png";
 
 // APIs
-import * as usersAPI from "../../components/utilities/user-api.js"; // استيراد الـ API
+import * as usersAPI from "../../components/utilities/user-api.js";
 
 export default function SignupPage({ setUser }) {
     const navigate = useNavigate();
-    const initialState = { username: "", password: "", confirmPassword: "", email: "" };
+    const initialState = { username: "", email: "", password: "", confirmPassword: "" };
     const [formData, setFormData] = useState(initialState);
-    const [errors, setErrors] = useState({ username: '', password: '', email: '', confirmPassword: '' });
-    let disabledSubmitBtn = Object.values(errors).every(val => val === "") && Object.values(formData).every(val => val !== "") ? false : true
+    const [errors, setErrors] = useState({ username: '', email: '', password: '', confirmPassword: '' });
 
-  
+    // منطق تعطيل الزر
+    let disabledSubmitBtn = Object.values(errors).some(val => val !== "") || Object.values(formData).some(val => val === "") ? true : false;
+
     function handleChange(evt) {
         setFormData({ ...formData, [evt.target.name]: evt.target.value });
         checkErrors(evt);
     }
 
-
     function checkErrors({ target }) {
         const updateErrors = { ...errors };
 
         if (target.name === 'username') {
-            updateErrors.username = target.value.length < 3 ? 'Username must be at least 3 characters.' : "";
-        }
-        if (target.name === 'password') {
-            updateErrors.password = target.value.length < 3 ? 'Password must be at least 3 characters.' : "";
-        }
-        if (target.name === 'confirmPassword') {
-            updateErrors.confirmPassword = target.value !== formData.password ? "Passwords must match." : "";
+            updateErrors.username = target.value.length < 3 ? 'Your username must be at least three characters long.' : "";
         }
         if (target.name === 'email') {
-            updateErrors.email = !target.value.includes("@") ? 'Please enter a valid email.' : "";
+            updateErrors.email = !/\S+@\S+\.\S+/.test(target.value) ? "Please enter a valid email address." : "";
+        }
+        if (target.name === 'password') {
+            updateErrors.password = target.value.length < 3 ? "Your password must be at least three characters long." : "";
+        }
+        if (target.name === 'confirmPassword') {
+            updateErrors.confirmPassword = target.value !== formData.password ? "Your passwords must match." : "";
         }
 
         setErrors(updateErrors);
-    }
+    };
 
     async function handleSubmit(evt) {
         try {
             evt.preventDefault();
-            const newUser = await usersAPI.signup(formData); 
-            setUser(newUser); 
-            navigate("/tasks");
+            const newUser = await usersAPI.signup(formData);
+            setUser(newUser);
+            setFormData(initialState);
+            navigate("/finchs");
         } catch (err) {
             console.log(err);
-            setUser(null); 
+            setUser(null);
         }
     }
 
-    return (<>
-        <div className="page-header">
-            <h1>Sign Up</h1>
-            {/* <img src={nerdFinch} alt="A finch using a computer" /> */}
-        </div>
-        <form onSubmit={handleSubmit} className="form-container signup">
-            <table>
-                <tbody>
-                    <tr>
-                        <th><label htmlFor="id_username">Username:</label></th>
-                        <td>
-                            <input type="text" value={formData.username} name="username" minLength="3" maxLength="150" onChange={handleChange} />
-                            <br/>
-                            { errors.username && <p>{errors.username}</p> }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label htmlFor="id_email">Email:</label></th>
-                        <td>
-                            <input type="text" value={formData.email} name="email" minLength="3" maxLength="150" onChange={handleChange} />
-                            <br/>
-                            { errors.email && <p>{errors.email}</p> }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label htmlFor="id_password1">Password:</label></th>
-                        <td>
-                            <input type="password" value={formData.password} name="password" minLength="3" onChange={handleChange} />
-                            <br/>
-                            { errors.password && <p>{errors.password}</p> }
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label htmlFor="id_password2">Password confirmation:</label></th>
-                        <td>
-                            <input type="password" value={formData.confirmPassword} name="confirmPassword" onChange={handleChange}/>
-                            <br/>
-                            { errors.confirmPassword && <p>{errors.confirmPassword}</p> }
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button type="submit" disabled={disabledSubmitBtn} className="btn submit">Submit!</button>
-        </form>
-    </>)
+    return (
+        <>
+            <div className="page-header" style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px" }}>
+                <img 
+                    src={nerdFinch} 
+                    alt="A finch using a computer" 
+                    style={{ width: "150px", height: "auto", marginRight: "20px" }}  
+                />
+                <h1>Sign Up</h1>
+            </div>
+
+            <div className="form-container signup" style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                <form onSubmit={handleSubmit} style={{ width: "300px", textAlign: "left" }}>
+                    <div style={{ marginBottom: "15px" }}>
+                        <label htmlFor="id_username" style={{ display: "block" }}>Username:</label>
+                        <input 
+                            type="text" 
+                            value={formData.username} 
+                            name="username" 
+                            minLength="3" 
+                            maxLength="150" 
+                            onChange={handleChange} 
+                            style={{ width: "100%", padding: "10px", marginTop: "5px" }} 
+                        />
+                        {errors.username && <p>{errors.username}</p>}
+                    </div>
+
+                    <div style={{ marginBottom: "15px" }}>
+                        <label htmlFor="id_email" style={{ display: "block" }}>Email:</label>
+                        <input 
+                            type="email" 
+                            value={formData.email} 
+                            name="email" 
+                            onChange={handleChange} 
+                            style={{ width: "100%", padding: "10px", marginTop: "5px" }} 
+                        />
+                        {errors.email && <p>{errors.email}</p>}
+                    </div>
+
+                    <div style={{ marginBottom: "15px" }}>
+                        <label htmlFor="id_password1" style={{ display: "block" }}>Password:</label>
+                        <input 
+                            type="password" 
+                            value={formData.password} 
+                            name="password" 
+                            minLength="3" 
+                            onChange={handleChange} 
+                            style={{ width: "100%", padding: "10px", marginTop: "5px" }} 
+                        />
+                        {errors.password && <p>{errors.password}</p>}
+                    </div>
+
+                    <div style={{ marginBottom: "15px" }}>
+                        <label htmlFor="id_password2" style={{ display: "block" }}>Password confirmation:</label>
+                        <input 
+                            type="password" 
+                            value={formData.confirmPassword} 
+                            name="confirmPassword" 
+                            onChange={handleChange} 
+                            style={{ width: "100%", padding: "10px", marginTop: "5px" }} 
+                        />
+                        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                    </div>
+
+                    <button type="submit" disabled={disabledSubmitBtn} className="btn submit" style={{ padding: "10px 20px", width: "100%" }}>Submit!</button>
+                </form>
+            </div>
+        </>
+    );
 }

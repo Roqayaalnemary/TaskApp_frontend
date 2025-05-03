@@ -2,25 +2,25 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f7fc; /* خلفية فاتحة */
+  background-color: #f4f7fc; 
 }
-/* تعيين الحجم المناسب للصورة */
+
 .app-logo {
-  width: 60px;  /* تغيير الحجم إلى 80 بكسل على سبيل المثال */
-  height: auto; /* الحفاظ على النسب الأصلية للصورة */
+  width: 60px;  
+  height: auto; 
 }
 
 
 
 /* Header Section */
 .header {
-  background-color: #ffffff;  /* خلفية بيضاء */
+  background-color: #ffffff; 
   color: #333;
   padding: 20px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* تأثير الظل أسفل الشريط العلوي */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
 }
 
 .header .logo {
@@ -53,7 +53,7 @@ body {
 .header .navbar a:hover,
 .header .navbar a.active {
   text-decoration: underline;
-  color: #0056b3;  /* تغيير اللون عند التمرير */
+  color: #0056b3; 
 }
 
 /* Main Content */
@@ -89,7 +89,7 @@ body {
 }
 
 .task-card.completed {
-  background-color: #e8f5e9; /* خلفية مهام مكتملة بلون أخضر فاتح */
+  background-color: #e8f5e9; 
 }
 
 .task-card h3 {

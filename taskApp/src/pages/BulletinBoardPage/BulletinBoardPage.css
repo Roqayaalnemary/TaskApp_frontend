@@ -1,256 +1,95 @@
-/* .dashboard {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin: 20px;
-  }
-  
-  .task-progress, .tasks, .calendar, .statistics {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-  
-  .progress-bar {
-    background-color: #f0f0f0;
-    height: 20px;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .progress {
-    background-color: #4caf50;
-    height: 100%;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  ul li {
-    margin-bottom: 10px;
-  }
-  
-  .completed {
-    color: green;
-  }
-  
-  .in-progress {
-    color: orange;
-  }
-  
-  .stats-box {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
-  }
-   
-
-
-/* قاعدة تنسيق الجسم */
-
-
-
-body {
-  font-family: 'Poppins', Arial, sans-serif;
-  background-color: #f4f6f9; /* خلفية فاتحة محايدة */
-  color: #333; /* لون النص الأساسي */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* الحاوية الرئيسية */
-.dashboard {
-  padding: 40px;
-  max-width: 1200px;
-  margin: 30px auto;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1); /* تأثير الظل العصري */
-}
-
-/* شريط التقدم */
-.task-progress {
-  margin-bottom: 30px;
-}
-
-.progress-bar {
-  width: 100%;
-  background-color: #ecf0f1;
-  border-radius: 25px;
-  height: 12px;
-}
-
-.progress {
-  height: 100%;
-  background-color: #3498db; /* اللون الأزرق العصري */
-  border-radius: 25px;
-}
-
-/* قائمة المهام */
-.tasks {
-  margin-bottom: 30px;
-}
-
-.tasks h3 {
-  font-size: 26px;
-  margin-bottom: 20px;
-  color: #2c3e50;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.tasks ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.tasks li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #ffffff;
+.bulletin-board-container {
   padding: 20px;
+}
+
+.add-post {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 2px solid #bdc3c7; /* إضافة الإطار حول المهام */
-  transition: all 0.3s ease;
 }
 
-.tasks li:hover {
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); /* تأثير الظل عند التمرير */
+.add-post input, .add-post textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.task-input {
-  border: 1px solid #bdc3c7;
-  background-color: #ecf0f1;
-  padding: 12px 20px;
-  border-radius: 8px;
-  width: 65%;
-  font-size: 16px;
-  color: #34495e;
-  transition: all 0.3s ease;
-}
-
-.task-input:focus {
-  outline: none;
-  border-color: #3498db; /* تغيير اللون عند التركيز */
-}
-
-.task-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.task-buttons button {
-  background-color: #3498db; /* اللون الأزرق العصري */
-  color: white;
+.add-post button {
   padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.task-buttons button:hover {
-  background-color: #2980b9; /* اللون الداكن عند التمرير */
-}
-
-.task-buttons button:active {
-  background-color: #1f618d; /* اللون الداكن عند الضغط */
-}
-
-.completed {
-  color: #27ae60; /* الأخضر العصري */
-}
-
-.in-progress {
-  color: #f39c12; /* البرتقالي العصري */
-}
-
-/* إضافة مهمة جديدة */
-.add-task {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.add-task input {
-  width: 70%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #bdc3c7;
-  font-size: 16px;
-  color: #34495e;
-  background-color: #ecf0f1;
-}
-
-.add-task button {
-  padding: 12px 30px;
-  background-color: #3498db;
+  background-color: #007bff;
   color: white;
-  border-radius: 8px;
-  font-size: 16px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.add-task button:hover {
-  background-color: #2980b9;
+.add-post button:hover {
+  background-color: #0056b3;
 }
 
-.add-task button:active {
-  background-color: #1f618d;
+.posts .post-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
 }
 
-.statistics {
-  margin-top: 50px;
+.post-actions button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
-.stats-box {
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.stats-box p {
-  margin: 10px 0;
-  font-size: 18px;
-  color: #34495e;
-  font-weight: 600;
-}
-
-.calendar-view {
+.comments-section {
   margin-top: 20px;
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.comments-section input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.comments-section button {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.comments-section button:hover {
+  background-color: #218838;
+}
+.post-image img {
+  width: 150px;  /* عرض الصورة */
+  height: 150px;  /* ارتفاع الصورة */
+  object-fit: cover;  /* الحفاظ على نسبة الصورة وتجنب التشويه */
+  border-radius: 8px;  /* إضافة حدود دائرية للصورة */
+}
+
+/* تنسيق التقويم */
+.calendar {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.calendar h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .react-calendar {
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.react-calendar__tile {
-  background-color: #fff;
-  border-radius: 8px;
-  color: #333;
-}
-
-.react-calendar__tile:hover {
-  background-color: #3498db;
-  color: #fff;
-}
-
-.react-calendar__tile:active {
-  background-color: #2980b9;
 }

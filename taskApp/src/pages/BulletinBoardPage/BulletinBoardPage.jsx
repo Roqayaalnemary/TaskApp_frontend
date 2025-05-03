@@ -1,97 +1,132 @@
-
 import React, { useState } from 'react';
 import './BulletinBoardPage.css'; // استيراد ملف الـ CSS
 
 export default function BulletinBoardPage() {
-  // حالة المهام
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Task 1', status: 'Completed' },
-    { id: 2, text: 'Task 2', status: 'In Progress' },
+  // حالة الإعلانات
+  const [posts, setPosts] = useState([
+    { id: 1, title: 'Task 1', content: 'This is the content for Task 1', author: 'John Doe', comments: [] },
+    { id: 2, title: 'Task 2', content: 'This is the content for Task 2', author: 'Jane Smith', comments: [] }
   ]);
 
-  const [newTask, setNewTask] = useState(''); // حالة المهمة الجديدة
+  const [newPost, setNewPost] = useState({ title: '', content: '' });
+  const [newComment, setNewComment] = useState('');
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
-  // دالة لإضافة مهمة جديدة (Create)
-  const addTask = () => {
-    if (newTask.trim() !== '') {
-      const newTaskObject = { id: tasks.length + 1, text: newTask, status: 'In Progress' };
-      setTasks([...tasks, newTaskObject]);
-      setNewTask(''); // مسح حقل الإدخال بعد الإضافة
+  // دالة لإضافة إعلان جديد (Create)
+  const addPost = () => {
+    if (newPost.title.trim() && newPost.content.trim()) {
+      const newPostObject = {
+        id: posts.length + 1,
+        title: newPost.title,
+        content: newPost.content,
+        author: 'Anonymous',
+        comments: []
+      };
+      setPosts([...posts, newPostObject]);
+      setNewPost({ title: '', content: '' }); // مسح حقل الإدخال بعد الإضافة
     }
   };
 
-  // دالة لتعديل نص المهمة (Update)
-  const editTask = (id, newText) => {
-    setTasks(tasks.map((task) =>
-      task.id === id ? { ...task, text: newText } : task
-    ));
+  // دالة لتعديل محتوى الإعلان (Update)
+  const editPost = (id, newTitle, newContent) => {
+    setPosts(posts.map(post => post.id === id ? { ...post, title: newTitle, content: newContent } : post));
   };
 
-  // دالة لتغيير حالة المهمة (أو تحديثها)
-  const updateTaskStatus = (id, newStatus) => {
-    setTasks(tasks.map((task) =>
-      task.id === id ? { ...task, status: newStatus } : task
-    ));
+  // دالة لحذف إعلان (Delete)
+  const deletePost = (id) => {
+    setPosts(posts.filter(post => post.id !== id));
   };
 
-  // دالة لحذف مهمة (Delete)
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  // دالة لإضافة تعليق (Create)
+  const addComment = (postId) => {
+    if (newComment.trim()) {
+      setPosts(posts.map(post =>
+        post.id === postId
+          ? { ...post, comments: [...post.comments, newComment] }
+          : post
+      ));
+      setNewComment('');
+    }
+  };
+
+  // دالة لحذف تعليق (Delete)
+  const deleteComment = (postId, commentIndex) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, comments: post.comments.filter((_, index) => index !== commentIndex) }
+        : post
+    ));
   };
 
   return (
     <div className="dashboard">
-      <div className="task-progress">
-        <h3>Task Progress</h3>
-        <div className="progress-bar">
-          <div className="progress" style={{ width: '75%' }}></div>
-        </div>
+      <h3>Bulletin Board</h3>
+
+      {/* إضافة إعلان جديد */}
+      <div className="add-post">
+        <input
+          type="text"
+          placeholder="Post Title"
+          value={newPost.title}
+          onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+        />
+        <textarea
+          placeholder="Post Content"
+          value={newPost.content}
+          onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
+        />
+        <button onClick={addPost}>Add Post</button>
       </div>
 
-      <div className="tasks">
-        <h3>Tasks for Today</h3>
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <input
-                type="text"
-                value={task.text}
-                onChange={(e) => editTask(task.id, e.target.value)} // تعديل النص
+      <div className="posts">
+        {posts.map(post => (
+          <div key={post.id} className="post-card">
+            <div className="post-header">
+              <h4>{post.title}</h4>
+              <span className="author">Posted by: {post.author}</span>
+              <div className="post-actions">
+                <button onClick={() => deletePost(post.id)}>Delete</button>
+                <button onClick={() => setSelectedPostId(post.id)}>Edit</button>
+              </div>
+            </div>
+            <p>{post.content}</p>
+
+            {/* قسم التعليقات */}
+            <div className="comments-section">
+              <h5>Comments:</h5>
+              {post.comments.map((comment, index) => (
+                <div key={index} className="comment">
+                  <p>{comment}</p>
+                  <button onClick={() => deleteComment(post.id, index)}>Delete Comment</button>
+                </div>
+              ))}
+              <textarea
+                placeholder="Add a comment..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
               />
-              <span className={task.status === 'Completed' ? 'completed' : 'in-progress'}>
-                {task.status}
-              </span>
-              <button onClick={() => updateTaskStatus(task.id, 'Completed')}>Complete</button>
-              <button onClick={() => updateTaskStatus(task.id, 'In Progress')}>In Progress</button>
-              <button onClick={() => deleteTask(task.id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-        <div>
-          <input
-            type="text"
-            placeholder="Add new task"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-          />
-          <button onClick={addTask}>Add Task</button>
-        </div>
-      </div>
+              <button onClick={() => addComment(post.id)}>Add Comment</button>
+            </div>
 
-      <div className="calendar">
-        <h3>Upcoming Events</h3>
-        <div className="calendar-view">
-          {/* يمكن إضافة تقويم أو موعد هنا */}
-        </div>
-      </div>
-
-      <div className="statistics">
-        <h3>Statistics</h3>
-        <div className="stats-box">
-          <p>Total Tasks: {tasks.length}</p>
-          <p>Completed: {tasks.filter(task => task.status === 'Completed').length}</p>
-          <p>In Progress: {tasks.filter(task => task.status === 'In Progress').length}</p>
-        </div>
+            {/* تعديل الإعلان */}
+            {selectedPostId === post.id && (
+              <div className="edit-post">
+                <input
+                  type="text"
+                  placeholder="Edit Title"
+                  value={post.title}
+                  onChange={(e) => editPost(post.id, e.target.value, post.content)}
+                />
+                <textarea
+                  placeholder="Edit Content"
+                  value={post.content}
+                  onChange={(e) => editPost(post.id, post.title, e.target.value)}
+                />
+                <button onClick={() => setSelectedPostId(null)}>Save</button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
