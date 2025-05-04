@@ -14,8 +14,9 @@ export default async function sendRequest(url, method = "GET", body = null) {
         options.body = JSON.stringify(body);
     }
 
+
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(`http://127.0.0.1:8000${url}`, options);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         }

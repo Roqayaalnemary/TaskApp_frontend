@@ -45,7 +45,7 @@ export default function SignupPage({ setUser }) {
             const newUser = await usersAPI.signup(formData);
             setUser(newUser);
             setFormData(initialState);
-            navigate("/finchs");
+            navigate("/home");
         } catch (err) {
             console.log(err);
             setUser(null);

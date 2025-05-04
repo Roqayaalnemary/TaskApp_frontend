@@ -1,12 +1,11 @@
 import sendRequest from "./sendRequest"; 
-const API_URL = "http://127.0.0.1:8000/api/tasks";
 const url = "/users/";
 
 
 
 export async function signup(formData) {
     try {
-        const response = await sendRequest(`${url}/signup/`, "POST", formData);
+        const response = await sendRequest(`${url}signup/`, "POST", formData);
         localStorage.setItem('token', response.access); 
         return response.user; 
     } catch (err) {

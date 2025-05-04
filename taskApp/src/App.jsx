@@ -14,6 +14,8 @@ import BulletinBoardPage from './pages/BulletinBoardPage/BulletinBoardPage';
 function App() {
   const [user, setUser] = useState(null);  // تعريف متغير المستخدم هنا
 
+  console.log("user here: ", user)
+
   return (
       <div className="app-container">
         <header className="header">
@@ -34,7 +36,7 @@ function App() {
 
         <main className="main-content">
           <Routes>  
-            <Route path="/*" element={<HomePage />} />
+            <Route path="/*" element={<HomePage user={user} setUser={setUser} />} />
             <Route path="/Tasks" element={<TasksPage />} />
             <Route path="/comments" element={<CommentsPage />} />
             <Route path="/bulletin-board" element={<BulletinBoardPage />} />
