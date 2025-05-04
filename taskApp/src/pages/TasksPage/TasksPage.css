@@ -1,49 +1,46 @@
   .react-calendar {
     background-color: #ffffff; 
     border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* إضافة ظل خفيف حول التقويم */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   }
   
   .react-calendar__tile {
-    background-color: #f9f9f9; /* تغيير خلفية التواريخ إلى لون فاتح */
-    color: #333; /* تعيين اللون الداكن للنصوص */
-    border-radius: 5px; /* إضافة حواف مدورة للتواريخ */
+    background-color: #f9f9f9; 
+    color: #333; 
+    border-radius: 5px; 
   }
   
   .react-calendar__tile:active, .react-calendar__tile:hover {
-    background-color: #007bff; /* تغيير اللون عند التمرير أو النقر */
-    color: white; /* تغيير لون النص عند التمرير أو النقر */
+    background-color: #007bff; 
+    color: white; 
   }
   
   .react-calendar__month-view__days__day--weekend {
-    color: #dc3545; /* تحديد لون عطلات نهاية الأسبوع */
+    color: #dc3545; 
   }
   
   .react-calendar__navigation button {
-    background-color: #007bff; /* تغيير لون أزرار التنقل */
-    color: white; /* جعل النص أبيض */
-    border: none; /* إزالة الحدود */
-    padding: 10px; /* إضافة مساحة داخلية للأزرار */
-    border-radius: 5px; /* إضافة حواف مدورة للأزرار */
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    padding: 10px; 
+    border-radius: 5px; 
   }
   
   .react-calendar__navigation button:hover {
-    background-color: #0056b3; /* تغيير اللون عند التمرير على الأزرار */
+    background-color: #0056b3; 
   }
-  
-  /* تغيير مظهر التاريخ المحدد */
+ 
   .react-calendar__tile--active {
     background-color: #28a745;
     color: white;
   }
   
-  /* تغيير النص عند عرض التاريخ */
   .react-calendar__month-view__days__day {
     padding: 10px;
     font-size: 14px;
   }
   
-  /* تعديلات تنسيق باقي المهام */
   .dashboard {
     padding: 20px;
   }

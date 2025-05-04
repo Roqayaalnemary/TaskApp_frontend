@@ -13,7 +13,6 @@ export default function SignupPage({ setUser }) {
     const [formData, setFormData] = useState(initialState);
     const [errors, setErrors] = useState({ username: '', email: '', password: '', confirmPassword: '' });
 
-    // منطق تعطيل الزر
     let disabledSubmitBtn = Object.values(errors).some(val => val !== "") || Object.values(formData).some(val => val === "") ? true : false;
 
     function handleChange(evt) {
