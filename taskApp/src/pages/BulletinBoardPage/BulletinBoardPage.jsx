@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './BulletinBoardPage.css'; 
 
 export default function BulletinBoardPage() {
-  const [posts, setPosts] = useState([]);  // تهيئة posts كمصفوفة فارغة
+  const [posts, setPosts] = useState([]);  
   const [newPost, setNewPost] = useState({ title: '', content: '' });
   const [newComment, setNewComment] = useState('');
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [userName, setUserName] = useState('');
+  const [editablePost, setEditablePost] = useState({ title: '', content: '' });
 
   useEffect(() => {
     const storedPosts = localStorage.getItem('posts');
@@ -21,13 +22,32 @@ export default function BulletinBoardPage() {
         id: posts.length + 1,
         title: newPost.title,
         content: newPost.content,
-        author: userName || 'Anonymous',  // إذا لم يكن هناك اسم مستخدم، سيكون 'Anonymous'
+        author: userName || 'Anonymous',  // Default to 'Anonymous' if no name is provided
         comments: []
       };
       setPosts([...posts, newPostObject]);
-      setNewPost({ title: '', content: '' }); 
+      setNewPost({ title: '', content: '' });
       localStorage.setItem('posts', JSON.stringify([...posts, newPostObject]));
     }
+  };
+
+  const editPost = (id) => {
+    const postToEdit = posts.find(post => post.id === id);
+    if (postToEdit) {
+      setEditablePost({ title: postToEdit.title, content: postToEdit.content });
+      setSelectedPostId(id);
+    }
+  };
+
+  const savePost = () => {
+    setPosts(posts.map(post => 
+      post.id === selectedPostId 
+        ? { ...post, title: editablePost.title, content: editablePost.content } 
+        : post
+    ));
+    localStorage.setItem('posts', JSON.stringify(posts));
+    setSelectedPostId(null);  // Clear selected post ID after saving
+    setEditablePost({ title: '', content: '' });  // Clear editable fields
   };
 
   const addComment = (postId) => {
@@ -88,11 +108,29 @@ export default function BulletinBoardPage() {
                 <h4>{post.title}</h4>
                 <span className="author">Posted by: {post.author}</span>
                 <div className="post-actions">
-                  <button onClick={() => setSelectedPostId(post.id)}>Edit</button>
+                  <button onClick={() => editPost(post.id)}>Edit</button>
                   <button onClick={() => setPosts(posts.filter(p => p.id !== post.id))}>Delete</button>
                 </div>
               </div>
               <p>{post.content}</p>
+
+              {/* Show editing fields if this post is selected */}
+              {selectedPostId === post.id && (
+                <div className="edit-post">
+                  <input
+                    type="text"
+                    value={editablePost.title}
+                    onChange={(e) => setEditablePost({ ...editablePost, title: e.target.value })}
+                    placeholder="Edit Post Title"
+                  />
+                  <textarea
+                    value={editablePost.content}
+                    onChange={(e) => setEditablePost({ ...editablePost, content: e.target.value })}
+                    placeholder="Edit Post Content"
+                  />
+                  <button onClick={savePost}>Save Post</button>
+                </div>
+              )}
 
               <div className="comments-section">
                 <h5>Comments:</h5>
