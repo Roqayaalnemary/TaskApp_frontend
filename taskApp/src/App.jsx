@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';  
 import image from './assets/images/Task-amico.png';  
 import './App.css'; 
 import "./pages/HomePage/HomePage.css"; 
+
+import { getUser } from './components/utilities/user-api';
 
 
 import SignupPage from './pages/SignupPage/SignupPage';  
@@ -12,10 +14,18 @@ import CommentsPage from './pages/CommentsPage/CommentsPage';
 import BulletinBoardPage from './pages/BulletinBoardPage/BulletinBoardPage'; 
 
 function App() {
-  const [user, setUser] = useState(null);  // تعريف متغير المستخدم هنا
+  const [user, setUser] = useState();
 
-  console.log("user here: ", user)
+  useEffect(() => {
+    async function fetchUser() {
+      const user = await getUser();
+      setUser(user);
+    }
+    fetchUser();
+  }, [])
 
+  
+console.log(user)
   return (
       <div className="app-container">
         <header className="header">
@@ -25,25 +35,32 @@ function App() {
           </div>
           <nav className="navbar">
             <ul>
-              <li><Link to="/home">Home</Link></li>
-              <li><Link to="/Tasks">Tasks</Link></li>
-              <li><Link to="/comments">Comments</Link></li>
-              <li><Link to="/bulletin-board">Bulletin Board</Link></li>
-              <li><Link to="/signin">Sign in</Link></li>
+              { user
+              ? <>
+                  <li><Link to="/Tasks">Tasks</Link></li>
+                  <li><Link to="/comments">Comments</Link></li>
+                  <li><Link to="/bulletin-board">Bulletin Board</Link></li>
+              </>
+              : <>
+                  <li><Link to="/home">Home</Link></li>
+              </>}
             </ul>
           </nav>
         </header>
 
         <main className="main-content">
           <Routes>  
-            <Route path="/*" element={<HomePage user={user} setUser={setUser} />} />
-            <Route path="/Tasks" element={<TasksPage />} />
-            <Route path="/comments" element={<CommentsPage />} />
-            <Route path="/bulletin-board" element={<BulletinBoardPage />} />
-            <Route path="/signup" element={<SignupPage setUser={setUser} />} />
-            <Route path="/" element={<BulletinBoardPage />} />
-            <Route path="/comments/:postId" element={<CommentsPage />} />
-
+            { user 
+            ? <>
+                <Route path="/*" element={<TasksPage />} />
+                <Route path="/comments" element={<CommentsPage user={user} />} />
+                <Route path="/bulletin-board" element={<BulletinBoardPage user={user} />} />
+                <Route path="/comments/:postId" element={<CommentsPage />} />
+            </>
+            : <>
+                <Route path="/*" element={<HomePage user={user} setUser={setUser} />} />
+                <Route path="/signup" element={<SignupPage setUser={setUser} />} />
+            </>}
           </Routes>
         </main>
       </div>

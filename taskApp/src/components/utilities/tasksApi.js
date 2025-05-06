@@ -18,7 +18,7 @@ export async function create(formData) {
 }
 
 // تحديث مهمة
-export async function update(taskId, formData) {
+export async function updateTask(taskId, formData) {
     return sendRequest(`${url}${taskId}/`, "PUT", formData);  // إرسال طلب PUT مع البيانات
 }
 

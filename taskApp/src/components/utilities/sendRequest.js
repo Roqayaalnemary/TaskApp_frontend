@@ -1,28 +1,22 @@
-// sendRequest.js
-export default async function sendRequest(url, method = "GET", body = null) {
-    const headers = {
-        "Content-Type": "application/json",
-    };
+export default async function sendRequest(url, method = 'GET', payload) {
+	const token = localStorage.getItem('token');
+	const options = { method };
+  
+	if (payload) {
+		options.headers = { 'Content-Type': 'application/json' };
+		options.body = JSON.stringify(payload);
+	}
 
-    // إذا كان هناك body (مثل البيانات التي سيتم إرسالها مع POST)، أضفه إلى الطلب
-    const options = {
-        method,
-        headers,
-    };
-
-    if (body) {
-        options.body = JSON.stringify(body);
+	if (token) {
+        options.headers = options.headers || {};
+        options.headers.Authorization = `Bearer ${token}`;
     }
 
-
-    try {
-        const response = await fetch(`http://127.0.0.1:8000${url}`, options);
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json(); // إرجاع البيانات المستلمة
-    } catch (error) {
-        console.error("There was an error with the fetch operation:", error);
-        throw error;
-    }
+	try {
+		const res = await fetch(`http://127.0.0.1:8000${url}`, options);
+		if (res.ok) return res.json();
+	} catch (err) {
+		console.log(err, "error in send-request");
+		return err;
+	}
 }
