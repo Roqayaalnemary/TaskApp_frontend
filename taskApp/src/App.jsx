@@ -4,7 +4,7 @@ import image from './assets/images/Task-amico.png';
 import './App.css'; 
 import "./pages/HomePage/HomePage.css"; 
 
-import { getUser } from './components/utilities/user-api';
+import { getUser, logout } from './components/utilities/user-api';
 
 
 import SignupPage from './pages/SignupPage/SignupPage';  
@@ -16,6 +16,7 @@ import BulletinBoardPage from './pages/BulletinBoardPage/BulletinBoardPage';
 function App() {
   const [user, setUser] = useState();
 
+
   useEffect(() => {
     async function fetchUser() {
       const user = await getUser();
@@ -24,7 +25,12 @@ function App() {
     fetchUser();
   }, [])
 
-  
+  function handleLogout() {
+    logout()
+    setUser(null);
+    navigate("/")
+}
+
 console.log(user)
   return (
       <div className="app-container">
@@ -38,11 +44,15 @@ console.log(user)
               { user
               ? <>
                   <li><Link to="/Tasks">Tasks</Link></li>
-                  <li><Link to="/comments">Comments</Link></li>
                   <li><Link to="/bulletin-board">Bulletin Board</Link></li>
+                  <form id="logout-form" onSubmit={handleLogout}>
+                  <button type="submit">Log out</button>
+                    
+                </form>
               </>
               : <>
                   <li><Link to="/home">Home</Link></li>
+                  
               </>}
             </ul>
           </nav>
@@ -56,6 +66,8 @@ console.log(user)
                 <Route path="/comments" element={<CommentsPage user={user} />} />
                 <Route path="/bulletin-board" element={<BulletinBoardPage user={user} />} />
                 <Route path="/comments/:postId" element={<CommentsPage />} />
+                <Route path="/comments/:postId" element={<CommentsPage />} />
+
             </>
             : <>
                 <Route path="/*" element={<HomePage user={user} setUser={setUser} />} />

@@ -18,3 +18,12 @@ export async function update(postId, formData) {
 export async function deletePost(postId) {
     return sendRequest(`${url}${postId}/`, "DELETE");  // إرسال طلب GET
 }
+
+
+export async function createComment(formData) {
+    return sendRequest(`${url}${formData.message}/add-comment/`, "POST", formData);  // إرسال طلب GET
+}
+
+export async function getAllComments(postId) {
+    return sendRequest(`${url}${postId}/comments/`);  // إرسال طلب GET
+}

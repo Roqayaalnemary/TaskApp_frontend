@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; 
 import './TasksPage.css'; 
 import taskImage from '/src/assets/images/Done-rafiki.png'; 
-import * as taskAPI from "../../components/utilities/tasksApi";  // دالة لإرسال الطلبات
+import * as taskAPI from "../../components/utilities/tasksApi";  
 
 
 
@@ -30,7 +30,7 @@ export default function TasksPage() {
   }
   const [tasks, setTasks] = useState([]);
   const [formData, setFormData] = useState(initialState)
-  const [selectedDate, setSelectedDate] = useState(new Date()); // ✅ إضافة التقويم فقط
+  const [selectedDate, setSelectedDate] = useState(new Date()); 
 
   useEffect(() => {
     async function getTasks() {
@@ -68,7 +68,6 @@ export default function TasksPage() {
 
   async function updateTaskStatus(taskId) {
     try {
-      // update the task status in the frontend
       const updatedTasks = tasks.map((task) => {
         if (task.id === taskId) {
           return { ...task, completed: true };
@@ -78,7 +77,7 @@ export default function TasksPage() {
       setTasks(updatedTasks);
 
       console.log(updatedTasks, "updatedTasks");
-      // Update the task status in the backend
+
       const taskUpdate = updatedTasks.find((task) => task.id === taskId);
       taskUpdate.completed = true;
       await taskAPI.updateTask(taskId, taskUpdate);
@@ -109,15 +108,12 @@ export default function TasksPage() {
     getTasks();
   }, [selectedDate]); 
 
-  // const completedTasks = tasks.filter(task => task.status === 'Completed').length;
   const completedTasks = tasks.filter(task => task.status === 'Completed').length;
 
   const totalTasks = tasks.length;
   const progressPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
-  // Filter tasks based on selected date
-  // const tasksForSelectedDate = tasks.filter(task => task.date.toDateString() === selectedDate.toDateString());
-
+  
   return (
     <div className="dashboard">
       <div className="task-progress">
@@ -139,9 +135,9 @@ export default function TasksPage() {
       </div>
 
       <div className="tasks">
-        {/* <h3>Tasks for {selectedDate.toDateString()}</h3> */}
+        {}
         <ul>
-          {tasks.map((task) => (  // Display all tasks, not just the ones for the selected date
+          {tasks.map((task) => (  
             <li key={task.id} className="task-item">
               <div>Title: {task.title}</div>
               <div>Description: {task.description}</div>
@@ -187,15 +183,7 @@ export default function TasksPage() {
 }
 
 
-      // {<div className="statistics">
-      //   <h3>Statistics</h3>
-      //   <div className="stats-box">
-      //     <p>Total Tasks: {totalTasks}</p>
-      //     <p>Completed: {completedTasks}</p>
-      //     <p>Progress: {progressPercentage}%</p>
-      //   </div>
-      // </div> }
-
+   
 
 
 

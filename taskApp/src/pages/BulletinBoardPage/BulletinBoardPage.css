@@ -118,16 +118,14 @@
   background-color: #1e7e34;
 }
 
-/* تصميم الصور في المنشور */
 .post-image img {
-  width: 180px;  /* عرض الصورة */
-  height: 180px;  /* ارتفاع الصورة */
-  object-fit: cover;  /* الحفاظ على نسبة الصورة */
-  border-radius: 10px;  /* إضافة حدود دائرية للصورة */
+  width: 180px;  
+  height: 180px;  
+  object-fit: cover;  
+  border-radius: 10px;  
   margin-top: 15px;
 }
 
-/* تنسيق التقويم */
 .calendar {
   margin-top: 20px;
   padding: 20px;

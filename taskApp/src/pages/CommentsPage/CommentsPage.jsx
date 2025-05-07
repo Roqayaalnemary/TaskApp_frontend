@@ -1,42 +1,99 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import './CommentsPage.css'; 
 
-export default function CommentsPage() {
+export default function CommentsPage({ postId }) {
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState([]);
 
-  const addComment = () => {
+  useEffect(() => {
+    async function fetchComments() {
+      try {
+        const response = await fetch(`/api/posts/${postId}/comments`);
+        const data = await response.json();
+        setComments(data); 
+      } catch (err) {
+        console.error('Error fetching comments:', err);
+      }
+    }
+
+    fetchComments();
+  }, [postId]); 
+
+  const addComment = async () => {
     if (commentText.trim()) {
-      const newComment = { 
-        id: comments.length + 1,
+      const newComment = {
         text: commentText,
         author: 'Anonymous', 
-        date: new Date().toLocaleString() 
+        date: new Date().toLocaleString(),
       };
 
-      // we have to create the information in the database and use our backend to store and leverage user information / persist that information over time
-      // to do this we need to make requests from the frontend to the backend using url's to match the request to the proper function in the server.
-      // a message can have many comments? right?
-      setComments([...comments, newComment]);
-      setCommentText('');
+      try {
+        const response = await fetch(`/api/posts/${postId}/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newComment),
+        });
+        
+        if (response.ok) {
+          const addedComment = await response.json();
+          setComments([...comments, addedComment]); 
+          setCommentText(''); 
+        } else {
+          console.error('Failed to add comment');
+        }
+      } catch (err) {
+        console.error('Error adding comment:', err);
+      }
     }
   };
 
-  const editComment = (id, newText) => {
-    setComments(comments.map((comment) =>
-      comment.id === id ? { ...comment, text: newText } : comment
-    ));
+  // تعديل تعليق
+  const editComment = async (id, newText) => {
+    try {
+      const response = await fetch(`/api/comments/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: newText }),
+      });
+
+      if (response.ok) {
+        const updatedComment = await response.json();
+        setComments(comments.map((comment) =>
+          comment.id === id ? updatedComment : comment
+        ));
+      } else {
+        console.error('Failed to edit comment');
+      }
+    } catch (err) {
+      console.error('Error editing comment:', err);
+    }
   };
 
-  const deleteComment = (id) => {
-    setComments(comments.filter((comment) => comment.id !== id));
+  const deleteComment = async (id) => {
+    try {
+      const response = await fetch(`/api/comments/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setComments(comments.filter((comment) => comment.id !== id)); 
+      } else {
+        console.error('Failed to delete comment');
+      }
+    } catch (err) {
+      console.error('Error deleting comment:', err);
+    }
   };
 
   return (
     <div className="comments-page-container">
       <h2>Comments Section</h2>
 
-      {}
       <div className="input-field">
         <label>Add a Comment</label>
         <textarea
@@ -47,7 +104,6 @@ export default function CommentsPage() {
         <button onClick={addComment}>Post Comment</button>
       </div>
 
-      {}
       <div className="comments-list">
         <h3>All Comments</h3>
         {comments.map((comment) => (
@@ -67,4 +123,3 @@ export default function CommentsPage() {
     </div>
   );
 }
-

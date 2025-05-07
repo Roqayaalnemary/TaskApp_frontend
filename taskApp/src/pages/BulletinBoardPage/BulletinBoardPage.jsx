@@ -62,29 +62,6 @@ export default function BulletinBoardPage({ user }) {
 
 
 
-
-
-  // const addComment = (postId) => {
-  //   if (newComment.trim() && userName.trim()) {
-  //     setPosts(posts.map(post =>
-  //       post.id === postId
-  //         ? { ...post, comments: [...post.comments, { text: newComment, author: userName }] }
-  //         : post
-  //     ));
-  //     setNewComment('');
-  //     localStorage.setItem('posts', JSON.stringify(posts));
-  //   }
-  // };
-
-  // const deleteComment = (postId, commentIndex) => {
-  //   setPosts(posts.map(post =>
-  //     post.id === postId
-  //       ? { ...post, comments: post.comments.filter((_, index) => index !== commentIndex) }
-  //       : post
-  //   ));
-  //   localStorage.setItem('posts', JSON.stringify(posts));
-  // };
-
   return (
     <div className="dashboard">
       <h3>Bulletin Board</h3>
@@ -111,36 +88,3 @@ export default function BulletinBoardPage({ user }) {
 
 }
 
-
-// {selectedPostId === post.id && (
-//   <div className="edit-post">
-//     <input
-//       type="text"
-//       value={editablePost.title}
-//       onChange={(e) => setEditablePost({ ...editablePost, title: e.target.value })}
-//       placeholder="Edit Post Title"
-//     />
-//     <textarea
-//       value={editablePost.content}
-//       onChange={(e) => setEditablePost({ ...editablePost, content: e.target.value })}
-//       placeholder="Edit Post Content"
-//     />
-//     <button onClick={savePost}>Save Post</button>
-//   </div>
-// )}
-
-{/* <div className="comments-section">
-  <h5>Comments:</h5>
-  {post.comments.map((comment, index) => (
-    <div key={index} className="comment">
-      <p><strong>{comment.author}</strong>: {comment.text}</p>
-      <button onClick={() => deleteComment(post.id, index)}>Delete Comment</button>
-    </div>
-  ))}
-  <textarea
-    placeholder="Add a comment..."
-    value={newComment}
-    onChange={(e) => setNewComment(e.target.value)}
-  />
-  <button onClick={() => addComment(post.id)}>Add Comment</button>
-</div> */}

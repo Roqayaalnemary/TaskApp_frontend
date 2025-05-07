@@ -1,12 +1,43 @@
-import { useState } from "react"
+import { useEffect, useState } from "react";
+import * as postAPI from "../utilities/posts-api";
+const fallbackImg = "https://i.pinimg.com/736x/b8/cc/35/b8cc357cccc871e4335e13c9506eb7fa.jpg";
 
 
-export default function DisplayPosts({post, user, handleUpdatePost, handleDeletePost}) {
+export default function DisplayPosts({post, handleUpdatePost, handleDeletePost}) {
     const [postFormData, setPostFormData] = useState({ content: post.content });
+    const [newComment, setNewComment] = useState('');
     const [edit, setEdit] = useState(false);
+    const [allComments, setAllComments] = useState([]);
+
+    useEffect(() => {
+        async function getAllComments() {
+            try {
+                const allCommentsFromDB = await postAPI.getAllComments(post.id);
+                setAllComments(allCommentsFromDB);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        getAllComments();
+    }, [])
 
     function handleChange(evt) {
         setPostFormData({ ...postFormData, [evt.target.name]: evt.target.value });
+    }
+
+    async function addComment(evt) {
+        try {
+            evt.preventDefault();
+            const commentData = {
+                content: newComment,
+                message: post.id,  // Assuming `post.id` is the ID of the post
+            }; 
+            const newDBComment = await postAPI.createComment(commentData);
+            setNewComment("")
+            setAllComments([...allComments, newDBComment])
+        } catch (err) {
+            console.error("Error adding comment:", err);
+        }
     }
 
     return (
@@ -19,6 +50,7 @@ export default function DisplayPosts({post, user, handleUpdatePost, handleDelete
                 {edit && <button onClick={() => handleUpdatePost(post.id, postFormData)}>Save</button>}
                 <button onClick={() => handleDeletePost(post.id)} >Delete</button>
               </div>
+              {post.image && <img src={post.image} onError={(e) => { e.target.onerror=null, e.target.src=fallbackImg}} alt="Post" className="post-image" />}
             </div>
         { edit
           ? <>
@@ -28,6 +60,16 @@ export default function DisplayPosts({post, user, handleUpdatePost, handleDelete
           </>
           : <p>{post.content}</p>
         }
+        <form onSubmit={addComment}>
+            <label htmlFor="new-comment">Add Comment:</label>
+            <input id="new-comment" type="text" value={newComment} onChange={(evt) => setNewComment(evt.target.value)} />
+            <button type="submit">Add Comment</button>
+        </form>
+        <div>
+            {allComments.map(comment => (
+                <h3 key={comment.id}>{comment.content}</h3>
+            ))}
+        </div>
       </div>
     )
 }
